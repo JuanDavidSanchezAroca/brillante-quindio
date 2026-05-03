@@ -1,0 +1,240 @@
+// ============================================
+// BRILLANTE QUINDÍO - Sistema de Diseño
+// Inspirado en los paisajes del Quindío
+// ============================================
+
+// Variables CSS globales
+:root {
+  // Paleta inspirada en el Quindío
+  --color-primary: #1a4d2e;        // Verde bosque profundo
+  --color-primary-light: #2d6a4f;   // Verde palma
+  --color-primary-dark: #0d2818;    // Verde selva
+  
+  --color-secondary: #d4a373;       // Arena/Bambú cálido
+  --color-secondary-light: #e9c59d; // Bambú claro
+  --color-accent: #f77f00;          // Naranja atardecer Quindío
+  
+  --color-surface: #fefae0;         // Crema papel antiguo
+  --color-surface-alt: #f5f0dc;     // Crema oscuro
+  --color-background: #fffef9;      // Blanco cálido
+  
+  --color-text: #1a1a1a;            // Negro suave
+  --color-text-muted: #5c5c5c;      // Gris texto secundario
+  --color-text-light: #ffffff;      // Blanco
+  
+  // Sombras con personalidad
+  --shadow-soft: 0 4px 20px rgba(26, 77, 46, 0.08);
+  --shadow-medium: 0 8px 32px rgba(26, 77, 46, 0.12);
+  --shadow-strong: 0 16px 48px rgba(26, 77, 46, 0.16);
+  --shadow-glow: 0 0 40px rgba(247, 127, 0, 0.2);
+  
+  // Tipografía
+  --font-display: 'Clash Display', sans-serif;
+  --font-body: 'Satoshi', sans-serif;
+  
+  // Espaciado
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  
+  // Bordes
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+  
+  // Transiciones
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-bounce: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+// Reset y base
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+// Fondo con textura sutil
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(26, 77, 46, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(247, 127, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(212, 163, 115, 0.02) 0%, transparent 70%);
+  z-index: -1;
+}
+
+// Tipografía
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-primary-dark);
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(2rem, 4vw, 3rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h4 { font-size: clamp(1.25rem, 2vw, 1.5rem); }
+
+p {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  max-width: 65ch;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+// Contenedor principal
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+  
+  @media (min-width: 768px) {
+    padding: 0 var(--space-xl);
+  }
+}
+
+// Secciones
+.section {
+  padding: var(--space-3xl) 0;
+  
+  @media (min-width: 768px) {
+    padding: var(--space-4xl) 0;
+  }
+}
+
+// Utilidades de texto
+.text-center { text-align: center; }
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Animaciones globales
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+// Clase para elementos animados al scroll
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Scrollbar personalizado
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  
+  &:hover {
+    background: var(--color-primary);
+  }
+}
+
+// Selection
+::selection {
+  background: var(--color-primary);
+  color: var(--color-text-light);
+}

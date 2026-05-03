@@ -1,0 +1,170 @@
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-button',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <button 
+      [class]="buttonClasses"
+      [disabled]="disabled || loading"
+      [type]="type"
+      (click)="handleClick($event)"
+    >
+      @if (loading) {
+        <span class="spinner"></span>
+      }
+      <ng-content />
+    </button>
+  `,
+  styles: [`
+    button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+      
+      &:hover::before {
+        left: 100%;
+      }
+      
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        
+        &::before {
+          display: none;
+        }
+      }
+    }
+    
+    .btn-primary {
+      background: var(--color-primary);
+      color: var(--color-text-light);
+      padding: 1rem 2rem;
+      border-radius: var(--radius-full);
+      font-size: 1rem;
+      
+      &:hover:not(:disabled) {
+        background: var(--color-primary-dark);
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-medium);
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--color-primary);
+      padding: 1rem 2rem;
+      border: 2px solid var(--color-primary);
+      border-radius: var(--radius-full);
+      font-size: 1rem;
+      
+      &:hover:not(:disabled) {
+        background: var(--color-primary);
+        color: var(--color-text-light);
+        transform: translateY(-2px);
+      }
+    }
+    
+    .btn-accent {
+      background: var(--color-accent);
+      color: var(--color-text-light);
+      padding: 1rem 2rem;
+      border-radius: var(--radius-full);
+      font-size: 1rem;
+      
+      &:hover:not(:disabled) {
+        background: #e06f00;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-glow);
+      }
+    }
+    
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      
+      &:hover:not(:disabled) {
+        background: rgba(26, 77, 46, 0.08);
+      }
+    }
+    
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+    
+    .btn-lg {
+      padding: 1.25rem 2.5rem;
+      font-size: 1.125rem;
+    }
+    
+    .spinner {
+      width: 1em;
+      height: 1em;
+      border: 2px solid transparent;
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  `]
+})
+export class ButtonComponent {
+  @Input() variant: 'primary' | 'secondary' | 'accent' | 'ghost' = 'primary';
+  @Input() size: 'sm' | 'md' | 'lg' = 'md';
+  @Input() disabled = false;
+  @Input() loading = false;
+  @Input() type: 'button' | 'submit' = 'button';
+  
+  @Output() clicked = new EventEmitter<Event>();
+  
+  get buttonClasses(): string {
+    const classes = [`btn-${this.variant}`];
+    if (this.size !== 'md') {
+      classes.push(`btn-${this.size}`);
+    }
+    return classes.join(' ');
+  }
+  
+  handleClick(event: Event): void {
+    if (!this.disabled && !this.loading) {
+      this.clicked.emit(event);
+    }
+  }
+}
