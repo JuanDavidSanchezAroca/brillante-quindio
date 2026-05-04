@@ -65,7 +65,11 @@
           }
 
           <div class="product-icon">
-            {{ product.icon }}
+            @if (product.image) {
+              <img [src]="product.image" [alt]="product.name" class="product-img" (error)="onImageError($event, product)" />
+            } @else {
+              {{ product.icon }}
+            }
           </div>
 
           <div class="product-content">

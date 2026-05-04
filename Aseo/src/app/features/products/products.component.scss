@@ -210,6 +210,13 @@
   font-size: 3rem;
   margin-bottom: var(--space-md);
   transition: transform var(--transition-bounce);
+
+  .product-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 8px;
+  }
 }
 
 .product-content {

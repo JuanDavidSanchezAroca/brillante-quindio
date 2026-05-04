@@ -73,4 +73,13 @@ export class ProductsComponent implements OnInit {
       `¡Hola! Me interesa el producto: ${product.name} (${this.formatPrice(product.price)})`
     );
   }
+
+  onImageError(event: Event, product: Product): void {
+    const img = event.target as HTMLImageElement;
+    img.style.display = 'none';
+    const parent = img.parentElement;
+    if (parent) {
+      parent.textContent = product.icon;
+    }
+  }
 }
