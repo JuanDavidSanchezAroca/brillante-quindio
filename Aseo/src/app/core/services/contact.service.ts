@@ -8,8 +8,8 @@ import { ContactForm, ContactInfo } from '@core/models';
 export class ContactService {
   
   private contactInfo: ContactInfo = {
-    phone: '+57 316 456 7890',
-    whatsapp: '573164567890',
+    phone: '+57 310 438 5658',
+    whatsapp: '573104385658',
     email: 'contacto@brillantequindio.com',
     address: 'Calle 20 #15-32, Centro',
     city: 'Armenia, Quindío',
