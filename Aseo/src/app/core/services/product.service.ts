@@ -175,6 +175,21 @@ export class ProductService {
       brand: 'OdorZero'
     },
     
+    // Multiusos
+    {
+      id: 'insecticida-jotanovo-rastreros',
+      name: 'Insecticida Jotanovo Rastreros x500ml',
+      description: 'Insecticida de acción rápida y prolongada contra animales rastreros: cucarachas, hormigas, arañas y más. Fórmula de alta efectividad.',
+      category: 'multiusos',
+      price: 14000,
+      icon: '🪲',
+      image: 'https://supermercadolaestacion.com/24091-thickbox_default/insecticida-jotanovo-x500ml-rastreros.jpg',
+      features: ['Rastreros', 'Acción rápida', 'Efecto prolongado', '500ml'],
+      isEco: false,
+      inStock: true,
+      brand: 'Jotanovo'
+    },
+
     // Herramientas
     {
       id: 'mopa-microfibra',
@@ -244,6 +259,10 @@ export class ProductService {
 
   getProductById(id: string): Observable<Product | undefined> {
     return of(this.products.find(p => p.id === id));
+  }
+
+  getProductImage(product: Product): string {
+    return product.image ?? product.icon;
   }
 
   formatPrice(price: number): string {
